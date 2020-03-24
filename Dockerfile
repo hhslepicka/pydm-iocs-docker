@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=hhslepicka/epics-devel:0.1 /root/epics /root/epics
+COPY --from=hhslepicka/epics-devel:0.2 /root/epics /root/epics
 ENV PATH /root/epics/base/bin/linux-x86_64:$PATH
 ENV IOCS /root/epics/iocs
 
