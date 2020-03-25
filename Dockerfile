@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 # Install system tools
 RUN apt-get update && \
-    apt-get -y install libreadline6-dev libncurses5-dev perl build-essential \
-                       vim wget git supervisor&& \
+    apt-get -y install --no-install-recommends libreadline6-dev \
+                        libncurses5-dev perl build-essential \
+                        vim wget git supervisor && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
