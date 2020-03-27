@@ -1,0 +1,34 @@
+# The is the ASYN example for communication to 4 simulated motors
+# "#!" marks lines that can be uncommented.
+
+< envPaths
+
+dbLoadDatabase("$(TOP)/dbd/motorSim.dbd")
+motorSim_registerRecordDeviceDriver(pdbbase)
+
+dbLoadTemplate("motor.substitutions")
+
+# Create simulated motors: ( start card , start axis , low limit, high limit, home posn, # cards, # axes to setup)
+motorSimCreate( 0, 0, -3200000, 3200000, 0, 1, 4 )
+# Setup the Asyn layer (portname, low-level driver drvet name, card, number of axes on card)
+drvAsynMotorConfigure("motorSim1", "motorSim", 0, 4)
+
+motorSimCreateController("motorSim2", 8)
+#asynSetTraceIOMask("motorSim2", 0, 4)
+#asynSetTraceMask("motorSim2", 0, 255)
+
+# motorSimConfigAxis(port, axis, lowLimit, highLimit, home, start)
+motorSimConfigAxis("motorSim2", 0, 2000000, -20000,  500, 0)
+motorSimConfigAxis("motorSim2", 1, 2000000, -20000, 1500, 0)
+motorSimConfigAxis("motorSim2", 2, 2000000, -20000, 2500, 0)
+motorSimConfigAxis("motorSim2", 3, 2000000, -20000, 3000, 0)
+
+iocInit
+
+dbpf IOC:m1.FLNK "linkX CA PP"
+dbpf IOC:m2.FLNK "linkY CA PP"
+
+dbpf IOC:m1.VELO 100
+dbpf IOC:m1.ACCL 0.002
+dbpf IOC:m2.VELO 100
+dbpf IOC:m2.ACCL 0.002

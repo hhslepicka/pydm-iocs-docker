@@ -29,6 +29,7 @@ dbpf 13SIM1:cam1:Acquire 1 \n' \
 >> /root/epics/iocs/areaDetector/iocSimDetector/st_base.cmd
 
 COPY patches/motor.substitutions /root/epics/iocs/motor/iocMotorSim/motor.substitutions
+COPY patches/motor_st.cmd.unix /root/epics/iocs/motor/iocMotorSim/st.cmd.unix
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
