@@ -28,6 +28,8 @@ dbpf 13SIM1:cam1:AcquireTime 0.1  \n\
 dbpf 13SIM1:cam1:Acquire 1 \n' \
 >> /root/epics/iocs/areaDetector/iocSimDetector/st_base.cmd
 
+COPY patches/motor.substitutions /root/epics/iocs/motor/iocMotorSim/motor.substitutions
+
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # flash the neighbours
