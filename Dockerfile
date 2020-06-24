@@ -34,6 +34,6 @@ COPY patches/motor_st.cmd.unix /root/epics/iocs/motor/iocMotorSim/st.cmd.unix
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # flash the neighbours
-EXPOSE 5064 5065
+EXPOSE ${EPICS_CA_SERVER_PORT:-5064} ${EPICS_CA_REPEATER_PORT:-5065}
 
 CMD ["/usr/bin/supervisord"]

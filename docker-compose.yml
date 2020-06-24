@@ -1,0 +1,36 @@
+version: '3.4'
+
+x-ioc-server:
+  &ioc-server
+  network_mode: "host"
+  image: pydm/pydm-iocs
+  tty: true
+  stdin_open: true
+  environment:
+    - EPICS_CA_REPEATER_PORT
+    - EPICS_CA_AUTO_ADDR_LIST
+    - EPICS_CA_BEACON_PERIOD
+    - EPICS_CA_ADDR_LIST
+    - EPICS_CA_CONN_TMO
+    - EPICS_CA_MAX_ARRAY_BYTES
+    - EPICS_CA_SERVER_PORT
+  ports:
+    - ${EPICS_CA_SERVER_PORT:-5064}
+    - ${EPICS_CA_REPEATER_PORT:-5065}
+  logging:
+    options:
+      tag: pydm-tutorial-ioc
+
+services:
+  pydm_tutorial_motor:
+    <<: *ioc-server
+    container_name: pydm_tutorial_ioc_motor
+    entrypoint: /root/epics/iocs/launchers/simMotor
+  pydm_tutorial_detector:
+    <<: *ioc-server
+    container_name: pydm_tutorial_ioc_detector
+    entrypoint: /root/epics/iocs/launchers/simDetector
+  pydm_tutorial_linker:
+    <<: *ioc-server
+    container_name: pydm_tutorial_ioc_linker
+    entrypoint: /root/epics/iocs/launchers/simLinker
